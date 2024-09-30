@@ -1,0 +1,68 @@
+.chatbot {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: auto;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+  }
+  
+  .messages {
+    flex-grow: 1;
+    padding: 10px;
+    overflow-y: auto;
+    background-color: #f9f9f9; /* 消息区域背景色 */
+  }
+  
+  .message {
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s; /* 添加过渡效果 */
+  }
+  
+  .message.user {
+    background-color: #d1e7dd; /* 用户消息背景 */
+    align-self: flex-end; /* 用户消息右对齐 */
+  }
+  
+  .message.assistant {
+    background-color: #f8d7da; /* 助手消息背景 */
+  }
+  
+  .message:hover {
+    background-color: rgba(200, 200, 200, 0.3); /* 悬停效果 */
+  }
+  
+  input[type="text"] {
+      width: calc(100% - 70px); /* 调整宽度以适应按钮 */
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      transition: border-color 0.3s; /* 添加过渡效果 */
+  }
+  
+  input[type="text"]:focus {
+      border-color: #007bff; /* 聚焦时边框颜色变化 */
+      outline: none; /* 去除默认轮廓 */
+  }
+  
+  button {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #007bff; /* 按钮背景色 */
+    color: white;
+    border: none;
+}
+
+button:hover {
+    background-color: #0056b3; /* 悬停效果 */
+}
+  
+  @media (max-width: 600px) {
+      input[type="text"] {
+          width: calc(100% - 50px); /* 小屏幕下调整输入框宽度 */
+      }
+  }

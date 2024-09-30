@@ -1,5 +1,6 @@
 import {useState, useContext} from "react";
 import {Link, Routes, Route} from "react-router-dom";
+import ChatBot from "./ChatBot";
 
 function App() {
 
@@ -10,7 +11,9 @@ function App() {
                 <Routes>
                     <Route path={"/"} element={<Home/>}/>
                     <Route path={"/pictures"} element={<Pictures/>}/>
+                    <Route path={"/ChatBot"} element={<ChatBot/>}/>
                     <Route path={"/contact"} element={<Contact/>}/>
+                    
                 </Routes>
             </div>
         </div>
@@ -24,6 +27,7 @@ function Header() {
                 <Link className="px-8 py-5 block" to="/">Home</Link>
                 <Link className="px-8 py-5 block" to="/pictures">pictures</Link>
                 <Link className="px-8 py-5 block" to="/contact">Contact</Link>
+                <Link className="px-8 py-5 block" to="/ChatBot">ChatBot</Link>
                 <a href="https://www.fukonglzw.cn/"
                    className="flex gap-2 items-start justify-start">
                     <span>fukong</span>
