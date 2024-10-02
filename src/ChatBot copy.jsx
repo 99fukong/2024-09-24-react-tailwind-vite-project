@@ -4,23 +4,24 @@ import { useChatStore } from "./store";
 import './ChatBot.css'; // 引入CSS样式
 
 const ChatBot = () => {
-  const {messages, addMessage } = useChatStore();
+  const { messages, addMessage } = useChatStore();
   const [userInput, setUserInput] = useState('');
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!userInput) return;
 
     try {
-      const response = await axios.post('/api/azurechatgpt', {
-        text: userInput // 发送的文本字段
+      const response = await axios.post('https://burn.hair/v1/chat/completions', {
+        model: 'gpt-3.5-turbo',
+        messages: [{ role: 'user', content: userInput }],
       }, {
         headers: {
+          'Authorization': `Bearer ${apiKey}`,
           'Content-Type': 'application/json',
         },
       });
 
-      let aiResponse = response.data.choices[0].message.content;
+      const aiResponse = response.data.choices[0].message.content;
       addMessage({ role: 'assistant', content: aiResponse });
       setUserInput(''); // 清空输入框
     } catch (error) {
@@ -35,6 +36,7 @@ const ChatBot = () => {
         addMessage({ role: 'error', content: `请求配置错误：${error.message}` });
       }
     }
+    
   };
 
   const handleInputChange = (event) => {
@@ -50,6 +52,7 @@ const ChatBot = () => {
     ));
   };
 
+  // 在组件渲染后自动滚动到最新消息
   useEffect(() => {
     const messagesContainer = document.querySelector('.messages');
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
