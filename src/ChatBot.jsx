@@ -26,7 +26,7 @@ const ChatBot = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!userInput) return;
-  
+    setUserInput(''); 
     addMessage({ role: 'user', content: userInput }); // 添加用户消息
   
     try {
