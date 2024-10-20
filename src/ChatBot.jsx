@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useChatStore } from "./store";
 import './ChatBot.css'; // 引入CSS样式
+import { useChatStore } from './chatStore'; // 引入 chatStore
+
 
 const ChatBot = () => {
   const {messages, addMessage } = useChatStore();
