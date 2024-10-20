@@ -7,22 +7,40 @@ const ChatBot = () => {
   const {messages, addMessage } = useChatStore();
   const [userInput, setUserInput] = useState('');
 
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   if (!userInput) return;
+
+  //   try {
+  //     const response = await axios.post('/api/azurechatgpt', {
+  //       text: userInput // 发送的文本字段
+  //     }, {
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //     });
+
+  //     let aiResponse = response.data.choices[0].message.content;
+  //     addMessage({ role: 'assistant', content: aiResponse });
+  //     setUserInput(''); // 清空输入框
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!userInput) return;
-
+  
+    addMessage({ role: 'user', content: userInput }); // 添加用户消息
+  
     try {
       const response = await axios.post('/api/azurechatgpt', {
-        text: userInput // 发送的文本字段
+        text: userInput
       }, {
         headers: {
           'Content-Type': 'application/json',
         },
       });
-
+  
       let aiResponse = response.data.choices[0].message.content;
-      addMessage({ role: 'assistant', content: aiResponse });
-      setUserInput(''); // 清空输入框
+      addMessage({ role: 'assistant', content: aiResponse }); // 添加AI回复
+      setUserInput('');
     } catch (error) {
       if (error.response) {
         console.error('Response error:', error.response.data);
@@ -42,13 +60,42 @@ const ChatBot = () => {
   };
 
   // 渲染消息列表
+  // const renderMessages = () => {
+  //   return messages.map((message, index) => (
+  //     <div key={index} className={`message ${message.role}`}>
+  //       {message.content}
+  //     </div>
+  //   ));
+  // };
   const renderMessages = () => {
-    return messages.map((message, index) => (
-      <div key={index} className={`message ${message.role}`}>
-        {message.content}
-      </div>
-    ));
+    const pairedMessages = [];
+    
+    // 遍历消息列表，按顺序将用户消息和 AI 回复配对
+    for (let i = 0; i < messages.length; i++) {
+      const userMessage = messages[i];
+      const aiMessage = messages[i + 1]; // 假设下一个是 AI 的回复
+  
+      if (userMessage.role === 'user' && aiMessage && aiMessage.role === 'assistant') {
+        pairedMessages.push(
+          <div key={i} className="message-pair">
+            <div className="message user">{userMessage.content}</div>
+            <div className="message assistant">{aiMessage.content}</div>
+          </div>
+        );
+        i++; // 跳过 AI 回复，因为已经配对显示
+      } else {
+        // 单独显示未配对的消息（如出错消息）
+        pairedMessages.push(
+          <div key={i} className={`message ${userMessage.role}`}>
+            {userMessage.content}
+          </div>
+        );
+      }
+    }
+  
+    return pairedMessages;
   };
+  
 
   useEffect(() => {
     const messagesContainer = document.querySelector('.messages');
