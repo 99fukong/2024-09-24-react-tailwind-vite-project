@@ -102,6 +102,7 @@ const ChatBot = () => {
   useEffect(() => {
     const messagesContainer = document.querySelector('.messages');
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    window.scrollTo(0, document.body.scrollHeight);
   }, [messages]);
 
   return (
