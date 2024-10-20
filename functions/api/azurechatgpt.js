@@ -19,8 +19,6 @@ export async function onRequestPost(context) {
             // messages: [{ role: 'user', content: 'hello' }],
         };
 
-        // const azure_openai_key = env.AZURE_OPENAI_API_KEY;
-        // const azure_openai_endpoint = env.AZURE_OPENAI_ENDPOINT
         const azure_openai_key = env.AZURE_OPENAI_API_KEY.trim();
         const azure_openai_endpoint = env.AZURE_OPENAI_ENDPOINT.trim();
         const requestOptions = {

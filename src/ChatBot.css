@@ -50,15 +50,16 @@
   }
   
   button {
-    padding: 10px;
     border-radius: 5px;
-    background-color: #007bff; /* 按钮背景色 */
-    color: white;
-    border: none;
+    background-color: #609fe7 !important; /* 按钮背景色 */
+    color: white !important;
+    border: none !important;
+    margin: 5px !important;
+    padding: 3px !important;
 }
 
 button:hover {
-    background-color: #0056b3; /* 悬停效果 */
+    background-color: #167fef !important; /* 悬停效果 */
 }
   
   @media (max-width: 600px) {
